@@ -1,8 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  .container
+    .littleContainer
+      h1 Scoreboard
+      h3 A new way to manage competitive athletics.
+
+      a(href="/add") Add an object.
 
 block scripts
   script(src='/javascripts/index.js')
