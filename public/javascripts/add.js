@@ -21,7 +21,12 @@ function getTeam() {
 
 function getAddTeam() {
 	var input = document.getElementById('addTeamInput');
-	var value = input.options[input.selectedIndex].value;
+	var inputOption = input.options[input.selectedIndex];
+	if(inputOption !== undefined) {
+		var value = inputOption.value;
+	} else {
+		var value = undefined;
+	}
 	return value;
 }
 
@@ -29,6 +34,7 @@ function getGly(index, css) {
 	return (css.match (/(^|\s)glyphicon-\S+/g) || []).join(' ');
 }
 
+// control which rows are visible for each type
 $('#typeInput').on('input', function(eventObj) {
   $('#objectName').text('Example Name');
 	$('#objectDesc').text('Lorum ipsum dolorem...');
@@ -79,9 +85,11 @@ $('#teamInput').on('input', function() {
 	}
 });
 
+
 $('#nameInput').on('input', function() {
 	$('#objectName').text(this.value);
 });
+
 
 $('#descInput').on('input', function() {
 	if(['event', 'team'].indexOf(getType()) > -1) {
@@ -94,10 +102,13 @@ $('#addTeam').on('click', function() {
 	var source = $('#testTemplate').html();
 	var template = Handlebars.compile(source);
 	var value = getAddTeam();
-	var data = {'name' : value};
-	$('#compRow > .form-group').append(template(data));
-	$('#addTeamInput > option[value=' + value + ']').prop('disabled', true);
-	$('#addTeamInput').val('0');
+	if(value) {
+	  var data = {'name' : value};
+	  $('#compRow > .form-group').append(template(data));
+	  $('#addTeamInput > option[value=' + value + ']').prop('disabled', true);
+	  $('#addTeamInput').val('0');
+	  refreshDescription();
+	}
 });
 
 function removeGame(obj) {
@@ -106,6 +117,29 @@ function removeGame(obj) {
 	$('#addTeamInput > option[value=' + value + ']').prop('disabled', false);
 	_parent.remove();
 	$('#addTeamInput').val('0');
+	refreshDescription();
+}
+
+// refresh preview description
+function refreshDescription() {
+	document.getElementById('objectDesc').innerHTML = "";
+	var teams = [];
+	var teamList = $('.team-box');
+	console.log(teamList)
+	console.log(teamList.length)
+	teamList.each(function() {
+		teams.push($(this).children(':first').text())
+		if(teams.length == teamList.length) {
+			if(teams.length > 4) {
+				teams = teams.slice(0, 4);
+		    var text = teams.join([separator=' vs '])
+		    text = text + '...';
+			} else {
+		    var text = teams.join([separator=' vs '])
+			}
+		  document.getElementById('objectDesc').innerHTML = text;
+		}
+	});
 }
 
 $('#submit').on('click', function(eventObj) {
@@ -126,5 +160,3 @@ $('#submit').on('click', function(eventObj) {
 	obj.what.name = name;
   console.log(obj);
 });
-
-
