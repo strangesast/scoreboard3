@@ -7,12 +7,16 @@ a {
 }
 
 .littleContainer {
+	position: relative;
 	margin: 0 auto;
-	max-width: 500px;
+	margin-top: 60px;
+	max-width: 650px;
+	padding: 30px 20px 20px 20px;
+	box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.13), 0px 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .header {
-	height: 120px;
+	height: 60px;
 	position: relative;
 }
 
@@ -23,9 +27,45 @@ a {
 }
 
 .summary {
-	min-height: 20px;
+	min-height: 25px;
 }
 
 .inputs {
 
+}
+
+.preview {
+	position: absolute;
+	top: 80px;
+	left: 50%;
+	right: 2%;
+	height: 80px;
+	float: right;
+	box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.15), 0px 2px 4px rgba(0, 0, 0, 0.24);
+	display: inline;
+}
+
+.preview > .thumbnail {
+	background-color: rgb(200, 200, 200);
+	font-size: 3.0em;
+	float: left;
+	height: 100%;
+	width: 80px;
+}
+
+.preview > .thumbnail > span {
+	display: table;
+	margin: 0 auto;
+	top: 20%;
+	color: white;
+}
+
+.text-container {
+	margin-left: 80px;
+	padding: 2px 2px 2px 2px;
+}
+
+.text-container > h3 {
+	margin-top: 4px;
+	margin-bottom: 4px;
 }

@@ -14,12 +14,7 @@ block content
       .inputs
         form(role="form")
           .row
-            .form-group.col-md-10
-              label(for="nameInput") Name
-              input(id="nameInput", name="name", type="text").form-control
-              p.help-block The name of this object. Need not be unique.
-          .row
-            .form-group.col-md-10
+            .form-group.col-md-6
               label(for="typeInput") Type
               select.form-control#typeInput
                 option(value="game") Game
@@ -27,22 +22,28 @@ block content
                 option(value="event") Event
               p.help-block The type of this object.
 
+          .row
+            .form-group.col-md-6
+              label(for="nameInput") Name
+              input(id="nameInput", name="name", type="text").form-control
+              p.help-block The name of this object. Need not be unique.
+              
           .row.hidden#gameRow
-            .form-group.col-md-10
+            .form-group.col-md-6
               label(for="gameInput") Parent Game
               select.form-control#gameInput
                 option(value="unattached") Unattached
               p.help-block Event in which game.
 
           .row.hidden#teamRow
-            .form-group.col-md-10
+            .form-group.col-md-6
               label(for="teamInput") Team
               select.form-control#teamInput
                 option(value="unattached") Unattached
               p.help-block Team attachment.
 
           .row.hidden#timeRow
-            .form-group.col-md-10
+            .form-group.col-md-6
               label(for="dateInput") Start Date/ Time
               .input-group.date#datetimepicker1
                 input(type='text').form-control
@@ -51,6 +52,12 @@ block content
               p.help-block When the event will begin.
 
         button.btn.btn-primary#submit Submit
+      .preview
+        .thumbnail
+          span.glyphicon.glyphicon-bullhorn#prevIcon
+        .text-container 
+          h3#objectName toast mctoast
+          p This is mr mctoast
 
 
 
