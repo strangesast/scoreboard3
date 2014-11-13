@@ -52,14 +52,14 @@ block content
 
           .row#compRow
             .form-group.col-md-6
-              h4 Competing Teams
-              button(type="button").btn.btn-default
-                span.glyphicon.glyphicon-plus
-            //.form-group.col-md-6
-            //  label(for="gameInput") Competing Teams
-            //  select.form-control#gameInput
-            //    option(value="unattached") Unattached
-            //  p.help-block Event in which game.
+              h4 Add Participating Teams
+              .input-group
+                select.form-control#addTeamInput
+                  option(value="unattached") Unattached
+                  option(value="test") Test
+                span.input-group-btn
+                  button(type="button").btn.btn-default#addTeam
+                    span.glyphicon.glyphicon-plus
 
           .row.hidden#timeRow
             .form-group.col-md-6
@@ -78,6 +78,9 @@ block content
         .text-container 
           h3#objectName Example Name
           p#objectDesc Lorum ipsum dolorem...
+
+  script()#testTemplate.
+    <div class="team-box"><span>{{name}}</span><button type="button" onclick="removeGame(this); return false;" class="btn btn-default remove-btn"><span class="glyphicon glyphicon-minus"></span></button></div>
 
 
 

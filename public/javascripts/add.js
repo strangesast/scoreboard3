@@ -19,6 +19,12 @@ function getTeam() {
 	return value;
 }
 
+function getAddTeam() {
+	var input = document.getElementById('addTeamInput');
+	var value = input.options[input.selectedIndex].value;
+	return value;
+}
+
 function getGly(index, css) {
 	return (css.match (/(^|\s)glyphicon-\S+/g) || []).join(' ');
 }
@@ -83,6 +89,24 @@ $('#descInput').on('input', function() {
 	}
 });
 
+
+$('#addTeam').on('click', function() {
+	var source = $('#testTemplate').html();
+	var template = Handlebars.compile(source);
+	var value = getAddTeam();
+	var data = {'name' : value};
+	$('#compRow > .form-group').append(template(data));
+	$('#addTeamInput > option[value=' + value + ']').prop('disabled', true);
+	$('#addTeamInput').val('0');
+});
+
+function removeGame(obj) {
+	var _parent = $(obj).parent();
+	var value = _parent.children(":first").text();
+	$('#addTeamInput > option[value=' + value + ']').prop('disabled', false);
+	_parent.remove();
+	$('#addTeamInput').val('0');
+}
 
 $('#submit').on('click', function(eventObj) {
 	var obj = {'method':'add'};
