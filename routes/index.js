@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
 
-router.get('/', handleRequest);
-router.post('/', handleRequest);
+router.get('/', handleIndexRequest);
+router.post('/', handleIndexRequest);
 
-function handleRequest(req, res) {
+function handleIndexRequest(req, res) {
 	var method = req.method;
 	if(method=='GET') {
 		// handle get
@@ -16,5 +16,10 @@ function handleRequest(req, res) {
 
 	}
 }
+
+// add a player/game/event to the db
+router.get('/add', function(req, res) {
+	res.render('add');
+});
 
 module.exports = router;

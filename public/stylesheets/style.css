@@ -1,8 +1,31 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
+}
+
+.littleContainer {
+	margin: 0 auto;
+	max-width: 500px;
+}
+
+.header {
+	height: 120px;
+	position: relative;
+}
+
+.header > .content {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+}
+
+.summary {
+	min-height: 20px;
+}
+
+.inputs {
+
 }

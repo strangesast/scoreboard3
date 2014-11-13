@@ -1,0 +1,60 @@
+extends layout
+
+block head
+  link(rel='stylesheet', href='/components/bootstrap-datepicker/css/datepicker.css')
+
+block content
+  .container
+    .littleContainer 
+      .header
+        .content
+          h1 Add
+      .summary
+        p Add a new game, event in game, or player.
+      .inputs
+        form(role="form")
+          .row
+            .form-group.col-md-10
+              label(for="nameInput") Name
+              input(id="nameInput", name="name", type="text").form-control
+              p.help-block The name of this object. Need not be unique.
+          .row
+            .form-group.col-md-10
+              label(for="typeInput") Type
+              select.form-control#typeInput
+                option(value="game") Game
+                option(value="player") Player
+                option(value="event") Event
+              p.help-block The type of this object.
+
+          .row.hidden#gameRow
+            .form-group.col-md-10
+              label(for="gameInput") Parent Game
+              select.form-control#gameInput
+                option(value="unattached") Unattached
+              p.help-block Event in which game.
+
+          .row.hidden#teamRow
+            .form-group.col-md-10
+              label(for="teamInput") Team
+              select.form-control#teamInput
+                option(value="unattached") Unattached
+              p.help-block Team attachment.
+
+          .row.hidden#timeRow
+            .form-group.col-md-10
+              label(for="dateInput") Start Date/ Time
+              .input-group.date#datetimepicker1
+                input(type='text').form-control
+                span.input-group-addon
+                  span.glyphicon.glyphicon-calendar
+              p.help-block When the event will begin.
+
+        button.btn.btn-primary#submit Submit
+
+
+
+block scripts
+  script(src="//cdn.rawgit.com/Eonasdan/bootstrap-datetimepicker/master/src/js/bootstrap-datetimepicker.js")
+  //script(src='/components/bootstrap-datepicker/js/bootstrap-datepicker.js')
+  script(src='/javascripts/add.js')
