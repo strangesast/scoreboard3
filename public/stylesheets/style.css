@@ -34,6 +34,10 @@ a {
 
 }
 
+.submission-area {
+	margin-top: 20px;
+}
+
 .preview {
 	position: absolute;
 	top: 80px;
@@ -49,6 +53,7 @@ a {
 	background-color: rgb(200, 200, 200);
 	font-size: 3.0em;
 	float: left;
+	padding: 0;
 	height: 100%;
 	width: 80px;
 }

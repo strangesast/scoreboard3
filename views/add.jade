@@ -10,7 +10,7 @@ block content
         .content
           h1 Add
       .summary
-        p Add a new game, event in game, or player.
+        p Add a player, team, game, or event in game.
       .inputs
         form(role="form")
           .row
@@ -20,13 +20,20 @@ block content
                 option(value="game") Game
                 option(value="player") Player
                 option(value="event") Event
+                option(value="team") Team
               p.help-block The type of this object.
 
-          .row
+          .row#nameRow
             .form-group.col-md-6
               label(for="nameInput") Name
               input(id="nameInput", name="name", type="text").form-control
               p.help-block The name of this object. Need not be unique.
+
+          .row.hidden#descRow
+            .form-group.col-md-6
+              label(for="descInput") Description
+              input(id="descInput", name="desc", type="text").form-control
+              p.help-block A very brief description.
               
           .row.hidden#gameRow
             .form-group.col-md-6
@@ -40,7 +47,19 @@ block content
               label(for="teamInput") Team
               select.form-control#teamInput
                 option(value="unattached") Unattached
+                option(value="test") Test
               p.help-block Team attachment.
+
+          .row#compRow
+            .form-group.col-md-6
+              h4 Competing Teams
+              button(type="button").btn.btn-default
+                span.glyphicon.glyphicon-plus
+            //.form-group.col-md-6
+            //  label(for="gameInput") Competing Teams
+            //  select.form-control#gameInput
+            //    option(value="unattached") Unattached
+            //  p.help-block Event in which game.
 
           .row.hidden#timeRow
             .form-group.col-md-6
@@ -51,13 +70,14 @@ block content
                   span.glyphicon.glyphicon-calendar
               p.help-block When the event will begin.
 
-        button.btn.btn-primary#submit Submit
+        .submission-area
+          button.btn.btn-primary#submit Submit
       .preview
         .thumbnail
           span.glyphicon.glyphicon-bullhorn#prevIcon
         .text-container 
-          h3#objectName toast mctoast
-          p This is mr mctoast
+          h3#objectName Example Name
+          p#objectDesc Lorum ipsum dolorem...
 
 
 
