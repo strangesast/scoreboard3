@@ -4,6 +4,12 @@ $(document).ready(function() {
 	$('#datetimepicker1').datetimepicker();
 });
 
+var validMethods = ['get', 'add'];
+var localUrl = '/api';
+
+function getName() {
+	return document.getElementById('nameInput').value;
+}
 
 function getDesc() {
 	return document.getElementById('descInput').value;
@@ -120,43 +126,74 @@ function removeGame(obj) {
 	refreshDescription();
 }
 
+// return teams that have been chosen
+function getSelectedTeams() {
+	var teams = [];
+	var teamList = $('.team-box');
+  for(var i=0; i<teamList.length; i++) {
+		var team = $(teamList[i]).children(':first').text();
+		teams.push(team);
+	}
+	return teams;
+}
+
 // refresh preview description
 function refreshDescription() {
 	document.getElementById('objectDesc').innerHTML = "";
-	var teams = [];
-	var teamList = $('.team-box');
-	console.log(teamList)
-	console.log(teamList.length)
-	teamList.each(function() {
-		teams.push($(this).children(':first').text())
-		if(teams.length == teamList.length) {
-			if(teams.length > 4) {
-				teams = teams.slice(0, 4);
-		    var text = teams.join([separator=' vs '])
-		    text = text + '...';
-			} else {
-		    var text = teams.join([separator=' vs '])
-			}
-		  document.getElementById('objectDesc').innerHTML = text;
-		}
-	});
+	var teams = getSelectedTeams();
+	console.log(teams);
+	var index = teams.indexOf('unattached');
+	if(index > -1) {
+		teams.splice(index, 1);
+	}
+	if(teams.length > 4) {
+		teams = teams.slice(0, 4);
+	  var text = teams.join([separator=' vs '])
+	  text = text + '...';
+	} else {
+	  var text = teams.join([separator=' vs '])
+	}
+	document.getElementById('objectDesc').innerHTML = text;
 }
 
 $('#submit').on('click', function(eventObj) {
 	var obj = {'method':'add'};
-  obj.what = {};
-	var type = document.getElementById('typeInput').value;
-	obj.what.type = type;
-	if(type == 'event') {
+	var what = {};
+	what.type = getType();
+
+	if(what.type == 'event') {
     var date = $('#datetimepicker1').data('DateTimePicker').getDate();
-		console.log(date);
-		obj.what.date = date;
-		obj.what.parent = document.getElementById('gameInput').value;
-	} else if(type == 'game') {
-	} else if(type == 'player') {
-		obj.what.team = document.getElementById('teamInput').value;
+		what.date = date;
+		what.parent = document.getElementById('gameInput').value;
+		what.description = document.getElementById('objectDesc').innerHTML;
+
+	} else if(what.type == 'game') {
+		what.name = getName();
+		what.teams = getSelectedTeams();
+
+	} else if(what.type == 'player') {
+		what.team = document.getElementById('teamInput').value;
 	}
 	var name = document.getElementById('nameInput').value
-	obj.what.name = name;
-  console.log(obj);
+	what.name = name;
+  obj.what = [what];
+
+	ajaxy(localUrl, obj, finishAddition);
 });
+
+function finishAddition(_data) {
+	console.log(_data);
+}
+
+function ajaxy(url, obj, callback) {
+  var promise = $.ajax({
+		url: url,
+		contentType:"application/json", // this is essential
+		type: 'POST',
+		data: obj
+	});
+
+	promise.done(function(data, err) {
+		console.log(data);
+	});
+}
