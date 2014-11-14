@@ -178,7 +178,7 @@ $('#submit').on('click', function(eventObj) {
 	what.name = name;
   obj.what = [what];
 
-	ajaxy(localUrl, obj, finishAddition);
+	ajaxy(localUrl, JSON.stringify(obj), finishAddition);
 });
 
 function finishAddition(_data) {

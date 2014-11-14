@@ -3,11 +3,13 @@ var router = express.Router();
 var mongodb = require('mongodb').MongoClient;
 var config = require('../config');
 var mongoUrl = config.mongoUrl;
+var maxWait = config.wait;
 
 var Db;
 
 function connect(firstCallback, secondCallback, secondParameters) {
 	if (Db === undefined) {
+		var guardTimeout = setTimeout(function() {secondCallback('timeout');}, maxWait);
 		mongodb.connect(mongoUrl, function(err, db) {
 			var string = 'mongo connection to ' + mongoUrl;
 			if(err) {console.log(string + ' unsuccessful');}
