@@ -18,4 +18,7 @@ config.playerCollectionName = 'players';
 config.regionCollectionName = 'regions';
 config.displayCollectionName = 'displays';
 
+
+config.validTypes = ['event', 'game', 'team', 'player'];
+
 module.exports = config;
