@@ -15,6 +15,7 @@ function connect(firstCallback, secondCallback, secondParameters) {
 			if(err) {console.log(string + ' unsuccessful');}
 			Db = db;
 			console.log(string + ' successfull');
+			clearTimeout(guardTimeout);
 		  firstCallback(secondCallback, secondParameters);
 		});
 	} else {
@@ -95,6 +96,7 @@ function add(callback, data) {
 	var response = [];
 
 	function buildResponse(i) {
+		console.log('tosat');
 		return function(err, docs) {
 			if(err) {
 				response[i] = err;
@@ -109,9 +111,11 @@ function add(callback, data) {
 
 	for(var i=0; i<what.length; i++) {
 		var each = what[i];
+		console.log(each);
 		if(config.validTypes.indexOf(each.type) == -1) {
 			response[i] = null;
 		} else {
+			console.log('good');
 		  Db.collection(each.type).insert(each, buildResponse(i));
 		}
 	}
