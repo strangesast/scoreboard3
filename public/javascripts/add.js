@@ -183,12 +183,12 @@ $('#submit').on('click', function(eventObj) {
 });
 
 function finishAddition(_data) {
-	if(_data != 'invalid') {
+	if(_data != 'invalid' && _data != 'timeout') {
 	  $('.littleContainer').children().not('.preview').animate({"opacity":"0"}, 500);
 		$('.littleContainer').animate({"height": "200px"}, 500);
 	  $('.preview').animate({"top": "25%", "left":"25%", "width": "300px"}, 500);
 		setTimeout(function () {
-			window.location.href = "/";
+			window.location.href = "/players";
 		}, 700);
 	} else {
 	  $('input, select').prop('disabled', false);
