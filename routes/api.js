@@ -14,7 +14,6 @@ function connect(firstCallback, secondCallback, secondParameters) {
 			if(err) {console.log(string + ' unsuccessful');}
 			Db = db;
 			console.log(string + ' successfull');
-			clearTimeout(guardTimeout);
 		  firstCallback(secondCallback, secondParameters);
 		});
 	} else {
