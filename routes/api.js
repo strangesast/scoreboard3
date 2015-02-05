@@ -9,7 +9,6 @@ var Db;
 
 function connect(firstCallback, secondCallback, secondParameters) {
 	if (Db === undefined) {
-		var guardTimeout = setTimeout(function() {secondCallback('timeout');}, maxWait);
 		mongodb.connect(mongoUrl, function(err, db) {
 			var string = 'mongo connection to ' + mongoUrl;
 			if(err) {console.log(string + ' unsuccessful');}
