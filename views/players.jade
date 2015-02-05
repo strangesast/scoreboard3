@@ -1,0 +1,22 @@
+extends layout
+
+block content
+  .container
+    .littleContainer 
+      .header
+        .content
+          h1 Players
+      .summary
+        p List of current players.
+      .list
+
+  script()#playerCard.
+    <div id="{{id}}" class="player-card">
+      <span>{{name}}</span>
+      <span>{{team}}</span>
+      <button type="button" onclick="removePlayer(this); return false;" class="btn btn-default remove-btn"><span class="glyphicon glyphicon-minus"></span></button>
+    </div>
+
+
+block scripts
+  script(src='/javascripts/players.js')

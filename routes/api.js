@@ -14,6 +14,7 @@ function connect(firstCallback, secondCallback, secondParameters) {
 			if(err) {console.log(string + ' unsuccessful');}
 			Db = db;
 			console.log(string + ' successfull');
+			clearTimeout(guardTimeout);
 		  firstCallback(secondCallback, secondParameters);
 		});
 	} else {
@@ -94,6 +95,7 @@ function add(callback, data) {
 	var response = [];
 
 	function buildResponse(i) {
+		console.log('tosat');
 		return function(err, docs) {
 			if(err) {
 				response[i] = err;
@@ -108,9 +110,11 @@ function add(callback, data) {
 
 	for(var i=0; i<what.length; i++) {
 		var each = what[i];
+		console.log(each);
 		if(config.validTypes.indexOf(each.type) == -1) {
 			response[i] = null;
 		} else {
+			console.log('good');
 		  Db.collection(each.type).insert(each, buildResponse(i));
 		}
 	}
@@ -122,14 +126,29 @@ router.post('/', handle);
 router.get('/', handle);
 
 function handle(req, res) {
-	var data = req.body;
-	var method = routing[data.method];
+	var incomingObj = req.body;
 
-	if(method === undefined) {
-		res.send('invalid');
+	if(validate(incomingObj)) {
+    var method = routing[incomingObj.method];
+	  connect(method, function(obj) {res.send(obj);}, incomingObj);
+
 	} else {
-		connect(method, function(obj) {res.send(obj);}, data);
+		res.send('invalid');
 	}
+}
+
+function validate(obj) {
+	// check for method and what in incoming object
+	if(!('method' in obj)) { console.log('bad method'); return false;}
+	if(!('what' in obj)) { console.log('bad what'); return false;}
+	// verify each what has a type
+	for(var i=0; i<obj.what.length; i++) {
+		if(!('type' in obj.what[i])) {
+			console.log(obj.what[i]);
+			return false;
+		}
+	}
+	return true;
 }
 
 module.exports = router;

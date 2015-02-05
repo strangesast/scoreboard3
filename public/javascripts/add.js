@@ -178,11 +178,22 @@ $('#submit').on('click', function(eventObj) {
 	what.name = name;
   obj.what = [what];
 
+	$('input, select').prop('disabled', true);
 	ajaxy(localUrl, JSON.stringify(obj), finishAddition);
 });
 
 function finishAddition(_data) {
-	console.log(_data);
+	if(_data != 'invalid' && _data != 'timeout') {
+	  $('.littleContainer').children().not('.preview').animate({"opacity":"0"}, 500);
+		$('.littleContainer').animate({"height": "200px"}, 500);
+	  $('.preview').animate({"top": "25%", "left":"25%", "width": "300px"}, 500);
+		setTimeout(function () {
+			window.location.href = "/players";
+		}, 700);
+	} else {
+	  $('input, select').prop('disabled', false);
+		// trigger that it was bad
+	}
 }
 
 function ajaxy(url, obj, callback) {
@@ -194,6 +205,6 @@ function ajaxy(url, obj, callback) {
 	});
 
 	promise.done(function(data, err) {
-		console.log(data);
+		finishAddition(data);
 	});
 }

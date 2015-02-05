@@ -22,4 +22,9 @@ router.get('/add', function(req, res) {
 	res.render('add');
 });
 
+router.get('/players', function(req, res) {
+	res.render('players');
+});
+
+
 module.exports = router;
